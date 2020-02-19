@@ -11,122 +11,136 @@
 //==============================================================================
 //lets make an employee profile using closures
 
-  function employee (name,salary){
-    return {
-      name: name,
-      salary: salary
-    }   
-  }
-
-  var employeeA = employee("jack", 100);
-  var employeeB = employee("Mark", 200);
-  var employeeC = employee("Sara", 150);
-
-
-  //create a function when invoked returns the name of that employee.
-
-  // employeeA.sayMyName(); // "jack"
-  // employeeB.sayMyName(); // "Mark"
-
-  function sayMyName(employee) {
-    return employee.name;
-  }
+function employee (name,salary){
+  return {
+    sayMyName: function() {
+      return name;
+    },
+    sayHello: function() {
+      return 'hello ' + name;
+    },
+    increaseSalary: function(n) {
+      return 'your salary is ' + salary + '$.';
+    },
+    listFreinds: function() {
+      return (employees.length) - 1;
+    }
 
 
-  //now modify that closure and add a function that says hello to the employee name;
+  }   
+}
+var employees = [employeeA, employeeB, employeeC];
+var employeeA = employee("jack", 100);
+var employeeB = employee("Mark", 200);
+var employeeC = employee("Sara", 150);
 
-  // employeeA.sayHello(); // hello jack
-  // employeeB.sayHello(); // hello Mark
+//create a function when invoked returns the name of that employee.
 
-  function sayHello(employee) {
-    return "hello  " + employee.name;
-  }
 
-  //modify your closure and add function increaseSalary that increases the salary for the employee by n value and return it.
-  //employeeA.increaseSalary(50); // "your salary is 150$"
+// employeeA.sayMyName(); // "jack"
+// employeeB.sayMyName(); // "Mark"
 
-  function increaseSalary(n, employee) {
-    n = n + employee.salary;
-    return "your salary is " + n + "$";
-  }
 
-  //how about we let jack and mark meet togther!
-  //modify your closure and add function addFriend that accepts an object as a parameter, and let jack meets his friends.
+//now modify that closure and add a function that says hello to the employee name;
 
-  // employeeA.addFriend(employeeB); // "you just became friend with Mark"
-  // employeeA.addFriend(employeeC); // "you just became friend with Mark and Sara"
+// employeeA.sayHello(); // hello jack
+// employeeB.sayHello(); // hello Mark
 
-  //modify your closure to tell mark how many friends does he have.
+//modify your closure and add function increaseSalary that increases the salary for the employee by n value and return it.
+//employeeA.increaseSalary(50); // "your salary is 150$"
 
-  // employeeA.listFriends(); // "you have 2 friends"
+//how about we let jack and mark meet togther!
+//modify your closure and add function addFriend that accepts an object as a parameter, and let jack meets his friends.
+
+// employeeA.addFriend(employeeB); // "you just became friend with Mark"
+// employeeA.addFriend(employeeC); // "you just became friend with Mark and Sara"
+
+//modify your closure to tell mark how many friends does he have.
+
+// employeeA.listFriends(); // "you have 2 friends"
 
 
 //=============================================================================
 /*                                  Q2                                       */
 //=============================================================================
-  //lets create a pet class using OOP concept,
-  // a - we need to create the pets (lets create only one for now), the invocation should take the name of the pet. 
- var pet1 = {
-   name : "doggy"
- }
- function nameOfPet(pet) {
-   return pet.name;
- }
+//lets create a pet class using OOP concept,
+// a - we need to create the pets (lets create only one for now), the invocation should take the name of the pet. 
 
-  // var pet1 = Pet("doggy");
+function Pet(name) {
+  this.name = name;
+}
 
-  // b - we need function to add the other info for the pet, called addInfo function. Make sure your functions unneeded memory space
+ var pet1 = new Pet("doggy");
 
-  function addInfo(pet, key) {
-    for(var key in pet) {
-      return 
-    } 
-  }
-  // pet1.addInfo(age, owner, gender, species);
+// b - we need function to add the other info for the pet, called addInfo function. Make sure your functions unneeded memory space
 
-  // c- create another function to increase the pet age by n value.
+// pet1.addInfo(age, owner, gender, species);
 
-  // d - create a variable called availability with the default state as false, then create another function to check the pet state, returns true if the pet is available and false if it's not
+function AddInfo(age, owner, gender, species) {
+  this.age = age;
+  this.owner = owner;
+  this.gender = gender;
+  this.species = species;
+  this.increaseAge = function(n) {
+    return this.age + n;
+  };
+}
 
-  // f- in order to change the state of the pet, create a function called changeState, when called it will make the pet avaliablity true,
-  //    and when called again it will make it false.
+var pet1 = new AddInfo(5, 'Amine', 'Male', 'German shepherd');
 
 
-  // Write your code here .....
+// c- create another function to increase the pet age by n value.
+
+// d - create a variable called availability with the default state as false, then create another function to check the pet state, returns true if the pet is available and false if it's not
+
+// f- in order to change the state of the pet, create a function called changeState, when called it will make the pet avaliablity true,
+//    and when called again it will make it false.
 
 
-  // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
+// Write your code here .....
 
+
+// Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
+
+// hhhhhh!, yes i am //
 //=============================================================================
 /*                                  Q3                                       */
 //=============================================================================
 function each(coll, f) {
-  if (Array.isArray(coll)) {
-    for (var i = 0; i < coll.length; i++) {
-      f(coll[i], i);
-    }
-  } else {
-    for (var key in coll) {
-      f(coll[key], key);
-    }
+if (Array.isArray(coll)) {
+  for (var i = 0; i < coll.length; i++) {
+    f(coll[i], i);
   }
+} else {
+  for (var key in coll) {
+    f(coll[key], key);
+  }
+}
 }
 
 function reduce(array, f, acc) { 
- if (acc === undefined) { 
-   acc = array[0]; 
-   array = array.slice(1); 
- } 
- each(array, function(element, i) { 
-   acc = f(acc, element, i); 
- }); 
- return acc; 
+if (acc === undefined) { 
+ acc = array[0]; 
+ array = array.slice(1); 
+} 
+each(array, function(element, i) { 
+ acc = f(acc, element, i); 
+}); 
+return acc; 
 }
 
 // Use the updated version of reduce to write a function max that returns the maximum number in an array of numbers. 
 
 // Write your code here .....
 
+function max(array) {
+return reduce(array, function(acc, num) {
+  if(acc > num) {
+    return acc;
+  }
+  return num;
+});
+}
 
 
 
@@ -136,16 +150,16 @@ function reduce(array, f, acc) {
 //================================================================================
 
 // you can only use MDN as a resource in case you need one (https://developer.mozilla.org/en-US/docs/Learn/HTML). 
- // 1-Create a new html file called html_yourname.html and do the following:
+// 1-Create a new html file called html_yourname.html and do the following:
 
- //    a. Change the title to : My easy Assessment.
- //    d. Add horizital line.
- //    e. Create a new div with id myInfo.
- //        1. Add header : HTML is Eazy
- //        2. Add the following paragraph: 
- //            HyperText Markup Language (HTML) is the standard markup language for creating web pages and web applications. 
+//    a. Change the title to : My easy Assessment.
+//    d. Add horizital line.
+//    e. Create a new div with id myInfo.
+//        1. Add header : HTML is Eazy
+//        2. Add the following paragraph: 
+//            HyperText Markup Language (HTML) is the standard markup language for creating web pages and web applications. 
 
- //    f. create an input text and a button called Add.
+//    f. create an input text and a button called Add.
 
 
 // Create css file and link it to your HTML file, and write css code for the following: 
@@ -160,4 +174,4 @@ function reduce(array, f, acc) {
 
 
 
-                              //  Good Luck :))
+                            //  Good Luck :))
